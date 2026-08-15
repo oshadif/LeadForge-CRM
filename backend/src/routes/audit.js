@@ -1,0 +1,1 @@
+import{Router}from"express";import{pool}from"../db.js";import{requireAuth,requireAdmin}from"../middleware/auth.js";const r=Router();r.get("/",requireAuth,requireAdmin,async(req,res)=>res.json((await pool.query(`SELECT a.*,u.name user_name FROM audit_logs a LEFT JOIN users u ON u.id=a.user_id ORDER BY a.created_at DESC LIMIT 500`)).rows));export default r;
